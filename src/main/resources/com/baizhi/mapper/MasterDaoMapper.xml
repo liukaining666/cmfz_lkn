@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.MasterDao">
+    <select id="queryByPage" resultType="Master">
+        select * from shangshi limit #{start},#{rows}
+    </select>
+    <select id="queryTotals" resultType="long">
+        select count(id) from shangshi
+    </select>
+
+    <!--增加轮播图-->
+    <insert id="insert" parameterType="Master">
+        insert shangshi values(#{id},#{name},#{headPic},#{sex})
+    </insert>
+    <!--删除轮播图-->
+    <delete id="delete" parameterType="Master">
+        delete from shangshi
+        where id=#{id}
+    </delete>
+    <!--修改轮播图-->
+    <update id="update" parameterType="Master">
+        update shangshi set name=#{name},headPic=#{headPic},sex=#{sex}
+        where id=#{id}
+    </update>
+
+    <!--根据id查询-->
+    <select id="queryById" resultType="Master">
+        select * from shangshi
+        where id=#{id}
+    </select>
+</mapper>

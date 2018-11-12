@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <resultMap id="AlbumMap" type="Album">
+        <id property="id" column="fid"></id>
+        <result property="title" column="ftitle"></result>
+        <result property="publishDate" column="fpublishDate"></result>
+        <result property="count" column="fcount"></result>
+        <result property="coverimg" column="fstar"></result>
+        <result property="author" column="fauthor"></result>
+        <result property="broadCast" column="fbroadCast"></result>
+        <result property="brief" column="fbrief"></result>
+    <collection property="children" ofType="Chapter">
+        <id property="id" column="zid"></id>
+        <result property="title" column="ztitle"></result>
+        <result property="size" column="zsize"></result>
+        <result property="duration" column="zduration"></result>
+        <result property="downPath" column="zdownPath"></result>
+        <result property="uploadTime" column="zuploadTime"></result>
+        <!--<result property="zjid" column="zjid"></result>-->
+    </collection>
+    </resultMap>
+    <select id="queryAll" resultMap="AlbumMap">
+            select a.id fid, a.title ftitle,
+            a.publishDate fpublishDate,
+            a.count fcount, a.coverImg fcoverImg,
+            a.star fstar, a.author fauthor,
+            a.broadCast fbroadCast, a.brief fbrief,
+            c.id zid,c.title ztitle,c.size zsize,
+            c.duration zduration,c.downPath zdownPath,c.uploadTime zuploadTime/*,c.zjid zjid*/
+            from zhuanji a
+            left join zhangjie c
+            on a.id=c.zjid
+    </select>
+
+    <insert id="insert" parameterType="Album">
+        insert  zhuanji(id,title,publishDate,coverimg,author) values(#{id},#{title},#{publishDate},#{coverimg},#{author})
+    </insert>
+
+    <select id="queryById" resultType="Album">
+        select * from zhuanji
+        where id=#{id}
+    </select>
+</mapper>

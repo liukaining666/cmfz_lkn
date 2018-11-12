@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerDao">
+    <select id="queryByPage" resultType="com.baizhi.entity.Banner">
+        select * from lunbotu limit #{start},#{rows}
+    </select>
+    <select id="queryTotals" resultType="long">
+        select count(id) from lunbotu
+    </select>
+
+    <!--增加轮播图-->
+    <insert id="insert" parameterType="Banner">
+        insert lunbotu values(#{id},#{title},#{lujing},#{descs},#{status},#{times})
+    </insert>
+    <!--删除轮播图-->
+    <delete id="delete" parameterType="Banner">
+        delete from lunbotu
+        where id=#{id}
+    </delete>
+    <!--修改轮播图-->
+    <update id="update" parameterType="Banner">
+        update lunbotu set title=#{title},lujing=#{lujing},times=#{times}
+        where id=#{id}
+    </update>
+
+    <!--根据id查询-->
+    <select id="queryById" resultType="Banner">
+        select * from lunbotu
+        where id=#{id}
+    </select>
+</mapper>
